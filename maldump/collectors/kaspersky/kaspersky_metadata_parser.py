@@ -3,6 +3,7 @@ from __future__ import annotations
 import logging
 import sqlite3
 from datetime import datetime
+from pathlib import Path
 
 from maldump.collectors.building_block import BuildingBlock
 from maldump.collectors.parser import Parser
@@ -59,7 +60,8 @@ class KasperskyMetadataParser(Parser):
             q = QuarEntry(self)
             q.timestamp = self._normalize_time(row[6])
             q.threat = row[3]
-            q.path = row[1] + row[2]
+            q.path = Path(row[1] + row[2])
+            q.local_path = None  # TODO: local path - self.location / data
             q.size = row[7]
             # q.malfile = malfile
             # quarfiles[filename] = q

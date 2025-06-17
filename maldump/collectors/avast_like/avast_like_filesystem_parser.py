@@ -46,7 +46,8 @@ class AvastLikeFilesystemParser(Parser):
             size = entry_stat.st_size
 
             q = QuarEntry(self)
-            q.path = str(entry)
+            q.path = entry
+            q.local_path = entry
             q.timestamp = timestamp
             q.size = size
             q.threat = ThreatMetadata.UNKNOWN_THREAT

@@ -29,6 +29,7 @@ class AviraFilesystemParser(Parser):
             q.timestamp = parse(self).timestamp(kt.qua_time)
             q.threat = kt.mal_type
             q.path = kt.filename[4:]
+            q.local_path = metafile
             # TODO q.malfile = kt.mal_file
             quarfiles.append(q)
             kt.close()

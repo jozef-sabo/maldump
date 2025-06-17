@@ -71,7 +71,7 @@ class EsetFilesystemParser(Parser):
                 logger.debug('Skipping entry idx %s, path "%s"', idx, entry)
                 continue
             timestamp = DTC.get_dt_from_stat(entry_stat)
-            path = str(entry)
+            path = entry
             sha1 = None
             size = entry_stat.st_size
             threat = ThreatMetadata.UNKNOWN_THREAT
@@ -79,7 +79,7 @@ class EsetFilesystemParser(Parser):
             kt = self._get_metadata(entry.parent, objhash)
             if kt is not None:
                 timestamp = kt.datetime_unix.date_time
-                path = kt.findings[0].mal_path.str
+                path = Path(kt.findings[0].mal_path.str)
                 sha1 = hex(int.from_bytes(kt.mal_hash_sha1, "big")).lstrip("0x")
                 size = kt.mal_size
                 threat = kt.findings[0].threat_canonized.str
@@ -87,6 +87,7 @@ class EsetFilesystemParser(Parser):
             q = QuarEntry(self)
             q.timestamp = timestamp
             q.path = path
+            q.local_path = entry
             q.sha1 = sha1
             q.size = size
             q.threat = threat

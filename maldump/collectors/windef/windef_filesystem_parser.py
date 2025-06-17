@@ -58,7 +58,8 @@ class WindefFilesystemParser(Parser):
             #     continue
 
             q = QuarEntry(self)
-            q.path = str(entry)
+            q.path = entry
+            q.local_path = entry  # TODO: local path - self.location / "ResourceData" / guid[:2] / guid
             q.timestamp = timestamp
             q.size = kt_data.encryptedfile.len_malfile
             q.threat = ThreatMetadata.UNKNOWN_THREAT

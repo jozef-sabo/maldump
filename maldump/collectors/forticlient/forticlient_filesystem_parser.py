@@ -1,5 +1,6 @@
 from datetime import datetime
 import logging
+from pathlib import Path
 
 from maldump.collectors.building_block import BuildingBlock
 from maldump.collectors.parser import Parser
@@ -14,7 +15,7 @@ logger = logging.getLogger(__name__)
 class ForticlientFilesystemParser(Parser):
 
     @log.log(lgr=logger)
-    def _normalize_path(self, path):
+    def _normalize_path(self, path: str) -> str:
         if path[2:4] == "?\\":
             path = path[4:]
         return path
@@ -39,7 +40,8 @@ class ForticlientFilesystemParser(Parser):
             q = QuarEntry(self)
             q.timestamp = self._get_time(kt.timestamp)
             q.threat = kt.mal_type
-            q.path = self._normalize_path(kt.mal_path)
+            q.path = Path(self._normalize_path(kt.mal_path))
+            q.local_path = metafile
             q.size = kt.mal_len
             # TODO
             # q.malfile = kt.mal_file

@@ -114,7 +114,9 @@ class AvastLikeMetadataParser(Parser):
         for idx, e in enumerate(self.__root.findall("ChestEntry")):
             logger.debug("Parsing entry, idx %s", idx)
             chest_id = self._get(e, "ChestId")
-            path = Path(self._get(e, "OrigFolder")) / Path(self._get(e, "OrigFileName"))
+            orig_path = Path(self._get(e, "OrigFolder")) / Path(
+                self._get(e, "OrigFileName")
+            )
             # Check if an entry is in the vault.db
             # TODO:
             # is_in_vault = e.find("IDPBlob") is not None
@@ -126,7 +128,8 @@ class AvastLikeMetadataParser(Parser):
             q = QuarEntry(self)
             q.timestamp = datetime.fromtimestamp(int(self._get(e, "TransferTime")))
             q.threat = self._get(e, "Virus")
-            q.path = str(path)
+            q.path = orig_path
+            q.local_path = None  # TODO: local path
 
             # q.malfile = malfile
             # quarfiles[chest_id] = q

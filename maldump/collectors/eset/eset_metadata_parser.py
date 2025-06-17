@@ -99,6 +99,7 @@ class EsetMetadataParser(Parser):
             q.timestamp = metadata["timestamp"]
             q.threat = metadata["infiltration"]
             q.path = metadata["obj"]
+            q.local_path = None  # TODO: local path -
             # q.malfile = self._get_malfile(metadata["user"], metadata["objhash"])
             if (q.sha1, metadata["user"]) in quarfiles:
                 logger.debug("Entry (idx %s) already found, skipping", idx)

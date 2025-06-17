@@ -1,4 +1,5 @@
 import logging
+from pathlib import Path
 
 from maldump.collectors.building_block import BuildingBlock
 from maldump.collectors.parser import Parser
@@ -27,7 +28,8 @@ class GdataFilesystemParser(Parser):
             q = QuarEntry(self)
             q.timestamp = parse(self).timestamp(kt.data1.quatime)
             q.threat = kt.data1.malwaretype.string_content
-            q.path = kt.data2.path.string_content[4:]
+            q.path = Path(kt.data2.path.string_content[4:])
+            q.local_path = metafile
             q.size = kt.data2.filesize
             # TODO
             # q.malfile = kt.mal_file

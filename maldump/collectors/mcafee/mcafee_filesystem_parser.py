@@ -100,6 +100,7 @@ class McafeeFilesystemParser(Parser):
             q.timestamp = datetime.strptime(parser["timestamp"], "%Y-%m-%d %H:%M:%S")
             q.threat = parser["threat"]
             q.path = parser["file_name"]
+            q.local_path = metafile
             q.size = int(parser["size"])
             # q.malfile = parser["mal_file"]
             # quarfiles[str(metafile)] = q
