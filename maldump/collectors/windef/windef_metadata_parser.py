@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from pathlib import Path
 
 from maldump.collectors.building_block import BuildingBlock
 from maldump.collectors.parser import Parser
@@ -48,7 +49,8 @@ class WindefMetadataParser(Parser):
                 q = QuarEntry(self)
                 q.timestamp = ts
                 q.threat = kt.data1.mal_type
-                q.path = self._normalize(e.entry.path.character)
+                q.path = Path(self._normalize(e.entry.path.character))
+                q.local_path = None  # TODO: local path - self.location / "ResourceData" / guid[:2] / guid
                 # q.malfile = malfile
                 quarfiles[guid] = q
 
