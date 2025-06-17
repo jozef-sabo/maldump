@@ -12,9 +12,18 @@ T = TypeVar("T")
 
 
 class QuarEntry:
+    """Quarantine Entry describing one elementary item found in logs,
+    filesystem, etc. representing one malicious file found
+
+    Attributes:
+        local_path (str): Path to the location of the malicious file
+        path (str): Path to the file on the original machine
+    """
+
     timestamp: dt
     threat: str
-    path: str
+    path: Path
+    local_path: Path
     size: int | None = None
     _md5: str | None = None
     sha1: str | None = None
